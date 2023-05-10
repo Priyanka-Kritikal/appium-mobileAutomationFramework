@@ -1,5 +1,6 @@
 package com.automate.customexceptions;
 
+@SuppressWarnings("serial")
 public class JsonFileUsageException extends FrameworkException {
 
   public JsonFileUsageException(String message) {

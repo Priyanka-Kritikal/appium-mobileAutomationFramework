@@ -7,10 +7,8 @@ import com.automate.enums.MobileBrowserName;
 import io.appium.java_client.AppiumDriver;
 import io.appium.java_client.MobileElement;
 import io.appium.java_client.android.AndroidDriver;
-import io.appium.java_client.ios.IOSDriver;
 import io.appium.java_client.remote.AndroidMobileCapabilityType;
 import io.appium.java_client.remote.AutomationName;
-import io.appium.java_client.remote.IOSMobileCapabilityType;
 import io.appium.java_client.remote.MobileCapabilityType;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -70,38 +68,7 @@ public final class Drivers {
     }
   }
 
-  public static AppiumDriver<MobileElement> createIOSDriverForNativeApp(String deviceName, String udid, int port) {
-    try {
-      var capability = new DesiredCapabilities();
-      capability.setCapability(CapabilityType.PLATFORM_NAME, Platform.IOS);
-      capability.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-      capability.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
-      capability.setCapability(MobileCapabilityType.UDID, udid);
-      capability.setCapability(MobileCapabilityType.APP, FrameworkConstants.IOS_APP_PATH);
-      capability.setCapability(IOSMobileCapabilityType.BUNDLE_ID, getConfig(ConfigJson.BUNDLE_ID));
-      capability.setCapability(IOSMobileCapabilityType.WDA_LOCAL_PORT,
-                               port); // To set different port for each thread - This port is used to communicate with WebDriverAgent driver
 
-      return new IOSDriver<>(new URL(getConfig(ConfigJson.APPIUM_URL)), capability);
-    } catch (Exception e) {
-      throw new DriverInitializationException("Failed to initialize driver. Please check the desired capabilities", e);
-    }
-  }
 
-  public static AppiumDriver<MobileElement> createIOSDriverForWeb(String deviceName, String udid, int port) {
-    try {
-      var capability = new DesiredCapabilities();
-      capability.setCapability(CapabilityType.PLATFORM_NAME, Platform.IOS);
-      capability.setCapability(MobileCapabilityType.DEVICE_NAME, deviceName);
-      capability.setCapability(MobileCapabilityType.AUTOMATION_NAME, AutomationName.IOS_XCUI_TEST);
-      capability.setCapability(MobileCapabilityType.UDID, udid);
-      capability.setCapability(IOSMobileCapabilityType.BUNDLE_ID, getConfig(ConfigJson.BUNDLE_ID));
-      capability.setCapability(CapabilityType.BROWSER_NAME, MobileBrowserName.SAFARI);
-      capability.setCapability("webkitDebugProxyPort", port); // For web view/Safari browser testing on real device
 
-      return new IOSDriver<>(new URL(getConfig(ConfigJson.APPIUM_URL)), capability);
-    } catch (Exception e) {
-      throw new DriverInitializationException("Failed to initialize driver. Please check the desired capabilities", e);
-    }
-  }
 }

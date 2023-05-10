@@ -1,5 +1,6 @@
 package com.automate.customexceptions;
 
+@SuppressWarnings("serial")
 public class PropertyFileUsageException extends FrameworkException {
 
   public PropertyFileUsageException(String message) {

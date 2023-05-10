@@ -24,12 +24,6 @@ public final class DriverFactory {
       case ANDROID_WEB:
         driver = Drivers.createAndroidDriverForWeb(deviceName, udid, port, emulator);
         break;
-      case IOS:
-        driver = Drivers.createIOSDriverForNativeApp(deviceName, udid, port);
-        break;
-      case IOS_WEB:
-        driver = Drivers.createIOSDriverForWeb(deviceName, udid, port);
-        break;
       default:
         throw new DriverInitializationException(
           "Platform name " + mobilePlatformName + " is not found. Please check the platform name");
